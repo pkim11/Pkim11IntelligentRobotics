@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<robot name="planar2r" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:property name="link1_length" value="3" />
+<xacro:property name="link2_length" value="3" />
+  <material name="mat_base">
+    <color rgba="0.13 0.18 0.24 0.8"/>
+  </material>
+  <material name="mat_joint">
+    <color rgba="0.10 0.32 0.46 0.8"/>
+  </material>
+  <material name="mat_link1">
+    <color rgba="0.48 0.14 0.11 0.7"/>
+  </material>
+
+  <material name="mat_link2">
+    <color rgba="0.10 0.44 0.24 0.7"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length = "0.2" radius = "0.15" />
+      </geometry>
+			<material name="mat_base"/>
+    </visual>
+  </link>
+
+  <link name="link1">
+    <visual>
+      <geometry>
+        <box size="${link1_length} 0.2 0.1"/>
+      </geometry>
+			<material name="mat_link1"/>
+			<origin rpy="0 0 0" xyz="-${link1_length/2} 0 0"/>
+    </visual>
+  </link>
+
+  <link name="link1a">
+    <visual>
+      <geometry>
+        <cylinder length = "0.2" radius = "0.15" />
+      </geometry>
+			<material name="mat_base"/>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint1" type="continuous">
+	<axis xyz="0 0 1" />
+    <parent link="base_link"/>
+    <child link="link1a"/>
+  </joint>
+
+  <joint name="l1" type="prismatic">
+    <parent link="link1a"/>
+    <child link="link1"/>
+		<limit effort="1000.0" lower="0" upper="${link1_length}" velocity="0.5"/>
+  </joint>
+
+  <link name="j2">
+    <visual>
+      <geometry>
+        <cylinder length = "0.2" radius = "0.15" />
+      </geometry>
+			<material name="mat_joint"/>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint2" type="continuous">
+	<axis xyz="0 0 1" />
+    <parent link="link1"/>
+    <child link="j2"/>
+		<origin xyz="0 0 0"/>
+  </joint>
+
+  <joint name="l2" type="prismatic">
+    <parent link="j2"/>
+    <child link="link2"/>
+		<limit effort="1000.0" lower="0" upper="${link2_length}" velocity="0.5"/>
+  </joint>
+
+  <link name="link2">
+    <visual>
+      <geometry>
+        <box size="${link2_length} 0.2 0.1"/>
+      </geometry>
+			<material name="mat_link2"/>
+			<origin rpy="0 0 0" xyz="-${link2_length/2} 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="j2_link2" type="fixed">
+    <parent link="j2"/>
+    <child link="link2"/>
+  </joint>
+
+  <link name="endEffector">
+    <visual>
+      <geometry>
+        <cylinder length = "0.2" radius = "0.01" />
+      </geometry>
+			<material name="mat_link2"/>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+  <joint name="endEff" type="fixed">
+    <parent link="link2"/>
+    <child link="endEffector"/>
+		<origin xyz="0 0 0"/>
+  </joint>
+
+</robot>
