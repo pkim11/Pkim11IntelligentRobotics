@@ -16,13 +16,19 @@ DEPS=$(patsubst %,$(IDIR)%,$(_DEPS))
 _OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o
 OBJ_ALL=$(patsubst %,$(ODIR)%,$(_OBJ_ALL))
 
-all: $(LIB_PATH)libIRLibrary.a 
+all: $(LIB_PATH)libIRLibrary.a  
 	mkdir -p $(ODIR)
 	mkdir -p $(LIB_PATH)
 	cd main && $(MAKE)
 
 
-$(ODIR)%.o: $(SRCDIR)%.cpp $(DEPS)
+$(ODIR):
+	mkdir -p $(ODIR)
+
+$(LIB_PATH):
+	mkdir -p $(LIB_PATH)
+
+$(ODIR)%.o: $(SRCDIR)%.cpp $(DEPS) | $(ODIR) $(LIB_PATH)
 	$(CXX) -c -o $@ $< $(CFLAGS)
 
 $(LIB_PATH)libIRLibrary.a: $(OBJ_ALL)
