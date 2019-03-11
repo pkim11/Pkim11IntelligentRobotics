@@ -4,17 +4,17 @@
 
 #include <array>
 #include <cmath>
+#include "TypeDefs.hpp"
 #include "Planar2R.hpp"
 
 namespace IRlibrary {
-	typedef std::array <double, 3> Vec3;
-	typedef std::array <double, 4> Vec4;
 	class Spatial3R {
 		protected:
 			Vec3 l;
 			Vec3 q; // Configuration space (angle1, angle2, angle3)
 			Vec3 x; // Task space Cartesian cordinates and end effector angle (x, y, z)
 			Vec4 quat; // Quaternion for orientation
+			AxisAngle axisAngle; // Axis angle representation for orientation (w_x, w_y, w_z, theta)
 			Vec3 base; // Cordinates of the base in 3D
 			Planar2R planar2r;
 		public:
@@ -29,7 +29,8 @@ namespace IRlibrary {
 
 			Vec3 getConfig() { return q; }
 			Vec3 getX() { return x; }
-			Vec4 getQuaternion () { return quat; }
+			Vec4 getQuaternion () { quat = {1, 0, 0, 0}; return quat; }
+			AxisAngle getAxisAngle () { return axisAngle; }
 
 			virtual void zeroForwardKinematics();
 

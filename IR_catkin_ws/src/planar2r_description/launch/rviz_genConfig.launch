@@ -16,6 +16,7 @@
 	<node pkg="planar2r_kinematics" type="planar2r_kinematics_geometry_shapes" name="geometry_shapes" />
   <!-- send joint values -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+	<param name="use_gui" value="False"/>
   </node>
 
 </launch>

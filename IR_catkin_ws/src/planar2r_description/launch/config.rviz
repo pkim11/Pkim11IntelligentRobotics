@@ -81,17 +81,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        j2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link1a:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -118,14 +108,10 @@ Visualization Manager:
           Value: true
         fk_endEffector:
           Value: true
-        j2:
-          Value: true
         link1:
-          Value: false
-        link1a:
           Value: true
         link2:
-          Value: false
+          Value: true
       Marker Scale: 2
       Name: TF
       Show Arrows: false
@@ -135,12 +121,10 @@ Visualization Manager:
         base_link:
           fk_endEffector:
             {}
-          link1a:
-            link1:
-              j2:
-                link2:
-                  endEffector:
-                    {}
+          link1:
+            link2:
+              endEffector:
+                {}
       Update Interval: 0
       Value: true
     - Class: rviz/Axes

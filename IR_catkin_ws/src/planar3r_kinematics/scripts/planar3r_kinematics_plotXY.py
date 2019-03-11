@@ -49,8 +49,8 @@ def updateXY(msg):
     global x, y, ax, fig
     global ang1, ang2, ax1
     count = count + 1;
-    curr_ang1 = msg.position[2] * 180 / math.pi
-    curr_ang2 = msg.position[4] * 180 / math.pi
+    curr_ang1 = msg.position[1] * 180 / math.pi
+    curr_ang2 = msg.position[2] * 180 / math.pi
     ang1 = np.append(ang1, curr_ang1)
     ang2 = np.append(ang2, curr_ang2)
     try:

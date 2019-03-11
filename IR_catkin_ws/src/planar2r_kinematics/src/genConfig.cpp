@@ -1,7 +1,6 @@
 #include "ros/ros.h"
 #include <sensor_msgs/JointState.h>
 #include <cmath>
-
 	/* Write your code her for publishing to /pubJointStates topic
 	** The message type is sensor_msgs/JointState 
 	** The name field should be an array of names of all four joints
@@ -14,7 +13,6 @@
 	** Make the values sinusodial depending on variable diff or anything you like
 	** Publish the msg 
 	** The lines to be changed or added are marked*/
-
 int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "genConfig");
@@ -24,21 +22,18 @@ int main(int argc, char **argv)
 	ros::Duration(0.01).sleep();
 	ros::Publisher configPub;
 	configPub = n.advertise <msg_type> ("/pubJointStates", ??); /* Fix this line. Do NOT change "/pubJointStates" */
-
 	ros::Time start = ros::Time::now();
 	sensor_msgs::JointState new_state;
-	new_state.name = {"joint1", "l1", "joint2", "l2"};
+	new_state.name = {"joint1", "joint2"};
 	new_state.header.stamp = ros::Time::now();
 	double diff = (ros::Time::now() - start).toSec();
-	new_state.position = { M_PI, 3.0, 0.0, 2.5 };
-	while (/* fix this */)
+	new_state.position = { M_PI * cos(diff), M_PI * sin(diff)};
+	while (/* Fix this */)
 	{
-		diff = /* Complete this */
+		diff = // Complete this
 		new_state.header.stamp = ros::Time::now();
-		new_state.position[0] = /* Fix this */
-		new_state.position[1] = /* Fix this */
-		new_state.position[2] = /* Fix this */ 
-		new_state.position[3] = /* Fix this */ 
+		new_state.position[0] = // Complete this
+		new_state.position[1] = // Complete this
 		/* Something important was published here */
 		/* This was important as well, something spinning */
 		/* Something related to sleep was here */

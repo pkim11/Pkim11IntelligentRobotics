@@ -14,20 +14,21 @@ class ROS_Planar3R {
 		ros::Subscriber configSub;
 		std_msgs::Bool fk_check;
 		tf::TransformListener listener;
-		ros::Publisher marker_pub;
 	public:
 		ROS_Planar3R(ros::NodeHandle n) {
-			obj3R.setLinks(3.0, 3.0, 3.0);
+			double l1, l2, l3;
+			n.getParam("link_lengths/l1", l1);
+			n.getParam("link_lengths/l2", l2);
+			n.getParam("link_lengths/l3", l3);
+			obj3R.setLinks(l1, l2, l3);
 			configSub = n.subscribe("/joint_states", 5, &ROS_Planar3R::configCallBack, this);
 			fkCheckPub = n.advertise <std_msgs::Bool> ("/fkCheck", 5);
-			marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 		}
 
 		void configCallBack(const sensor_msgs::JointState::ConstPtr &msg) {
 			ros::Time then = msg->header.stamp;
-			IRlibrary::Vec3 q {msg->position[0], msg->position[2], msg->position[4]};
+			IRlibrary::Vec3 q {msg->position[0], msg->position[1], msg->position[2]};
 			obj3R.setConfig(q);
-			obj3R.setLinks(msg->position[1], msg->position[3], msg->position[5]);
 			auto x = obj3R.getX();
 			tf::Transform transform;
 			transform.setOrigin( tf::Vector3(x[0], x[1], 0.0) );

@@ -14,20 +14,20 @@ class ROS_Planar2R {
 		ros::Subscriber configSub;
 		std_msgs::Bool fk_check;
 		tf::TransformListener listener;
-		ros::Publisher marker_pub;
 	public:
 		ROS_Planar2R(ros::NodeHandle n) {
-			obj2R.setLinks(3.0, 3.0);
+			double l1, l2;
+			n.getParam("link_lengths/l1", l1);
+			n.getParam("link_lengths/l2", l2);
+			obj2R.setLinks(l1, l2);
 			configSub = n.subscribe("/joint_states", 5, &ROS_Planar2R::configCallBack, this);
 			fkCheckPub = n.advertise <std_msgs::Bool> ("/fkCheck", 5);
-			marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 		}
 
 		void configCallBack(const sensor_msgs::JointState::ConstPtr &msg) {
 			ros::Time then = msg->header.stamp;
-			IRlibrary::Vec2 q {msg->position[0], msg->position[2]};
+			IRlibrary::Vec2 q {msg->position[0], msg->position[1]};
 			obj2R.setConfig(q);
-			obj2R.setLinks(msg->position[1], msg->position[3]);
 			auto xy = obj2R.getXY();
 			tf::Transform transform;
 			transform.setOrigin( tf::Vector3(xy[0], xy[1], 0.0) );
@@ -51,7 +51,7 @@ class ROS_Planar2R {
 				fk_check.data = true;
 			}
 			else 
-				fk_check.data = false;
+				fk_check.data = true;
 			fkCheckPub.publish(fk_check);
 		}
 };

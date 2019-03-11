@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Grid1
         - /RobotModel1
         - /TF1
         - /TF1/Frames1
@@ -58,7 +59,7 @@ Visualization Manager:
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 10
+      Plane Cell Count: 16
       Reference Frame: <Fixed Frame>
       Value: true
     - Alpha: 1
@@ -81,22 +82,17 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        j2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         link1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link1a:
+        link2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        link2:
+        link3:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -118,14 +114,12 @@ Visualization Manager:
           Value: true
         fk_endEffector:
           Value: true
-        j2:
-          Value: true
         link1:
-          Value: false
-        link1a:
           Value: true
         link2:
-          Value: false
+          Value: true
+        link3:
+          Value: true
       Marker Scale: 2
       Name: TF
       Show Arrows: false
@@ -135,17 +129,16 @@ Visualization Manager:
         base_link:
           fk_endEffector:
             {}
-          link1a:
-            link1:
-              j2:
-                link2:
-                  endEffector:
-                    {}
+          link1:
+            link2:
+              link3:
+                endEffector:
+                  {}
       Update Interval: 0
       Value: true
     - Class: rviz/Axes
       Enabled: true
-      Length: 5
+      Length: 8
       Name: Axes
       Radius: 0.009999999776482582
       Reference Frame: <Fixed Frame>
@@ -192,7 +185,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 90.25857543945312
+      Scale: 58.03278732299805
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
       X: 1.2042744159698486

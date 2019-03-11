@@ -83,22 +83,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        j2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        j3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         link1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        link1a:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -123,25 +108,17 @@ Visualization Manager:
       Enabled: true
       Frame Timeout: 15
       Frames:
-        All Enabled: false
+        All Enabled: true
         base_link:
           Value: true
         endEffector:
           Value: true
-        fk_endEffector:
-          Value: true
-        j2:
-          Value: true
-        j3:
-          Value: true
         link1:
-          Value: false
-        link1a:
           Value: true
         link2:
-          Value: false
+          Value: true
         link3:
-          Value: false
+          Value: true
       Marker Scale: 2
       Name: TF
       Show Arrows: false
@@ -149,16 +126,11 @@ Visualization Manager:
       Show Names: false
       Tree:
         base_link:
-          fk_endEffector:
-            {}
-          link1a:
-            link1:
-              j2:
-                link2:
-                  j3:
-                    link3:
-                      endEffector:
-                        {}
+          link1:
+            link2:
+              link3:
+                endEffector:
+                  {}
       Update Interval: 0
       Value: true
     - Class: rviz/Axes
@@ -173,8 +145,7 @@ Visualization Manager:
       Marker Topic: visualization_marker
       Name: Marker
       Namespaces:
-        basic_shapes: true
-        ws_shapes: false
+        {}
       Queue Size: 100
       Value: true
   Enabled: true

@@ -5,18 +5,24 @@
 
 visualization_msgs::Marker marker;
 ros::Publisher marker_pub;
-void configCallBack(const sensor_msgs::JointState::ConstPtr &msg) {
-	ros::Time then = msg->header.stamp;
-
-	visualization_msgs::Marker bigCircle, midCircle1, midCircle2;
+visualization_msgs::Marker bigCircle, midCircle1, midCircle2;
+void drawWorkspace(ros::NodeHandle n) {
+	double l1, l2, l3;
+	n.getParam("link_lengths/l1", l1);
+	n.getParam("link_lengths/l2", l2);
+	n.getParam("link_lengths/l3", l3);
 	bigCircle.type = visualization_msgs::Marker::LINE_STRIP;
 	midCircle1.type = midCircle2.type = visualization_msgs::Marker::SPHERE;
 	bigCircle.header.frame_id = "/base_link";
 	bigCircle.header.stamp = ros::Time::now();
-	midCircle1.header.frame_id = "/link1";
+	midCircle1.header.frame_id = "/base_link";
 	midCircle1.header.stamp = ros::Time::now();
-	midCircle2.header.frame_id = "/link1";
+	midCircle2.header.frame_id = "/base_link";
 	midCircle2.header.stamp = ros::Time::now();
+	midCircle1.pose.position.x = 0;
+	midCircle1.pose.position.y = 0;
+	midCircle1.pose.position.z = l1;
+	midCircle2.pose.position = midCircle1.pose.position;
 	bigCircle.ns =  midCircle1.ns = midCircle2.ns = "ws_shapes";
 	bigCircle.id = 1;
 	midCircle1.id = 3;
@@ -25,10 +31,8 @@ void configCallBack(const sensor_msgs::JointState::ConstPtr &msg) {
 	midCircle1.action = visualization_msgs::Marker::ADD;
 	midCircle2.action = visualization_msgs::Marker::ADD;
 	bigCircle.scale.x = 0.05;
-	double largerRad = msg->position[3] + msg->position[5];
-	double smallerRad = abs(msg->position[3] - msg->position[5]);
-	double midRad1 = abs(msg->position[3] + msg->position[5]);
-	double midRad2 = abs(msg->position[3] + msg->position[5]);
+	double largerRad = l2 + l3;
+	double smallerRad = abs(l2 - l3);
 
 	midCircle1.scale.x = 2 * largerRad;
 	midCircle1.scale.y = 2 * largerRad;
@@ -55,9 +59,6 @@ void configCallBack(const sensor_msgs::JointState::ConstPtr &msg) {
 		bigCircle.points.push_back(p1);
 	}
 
-	marker_pub.publish(bigCircle);
-	marker_pub.publish(midCircle1);
-	marker_pub.publish(midCircle2);
 }
 
 void fkCheckCallBack(const std_msgs::Bool &msg) {
@@ -72,6 +73,9 @@ void fkCheckCallBack(const std_msgs::Bool &msg) {
 		marker.text = "Please check Forward Kinematics";
 	}
 	marker_pub.publish(marker);
+	marker_pub.publish(bigCircle);
+	marker_pub.publish(midCircle1);
+	marker_pub.publish(midCircle2);
 }
 int main( int argc, char** argv )
 {
@@ -106,14 +110,17 @@ int main( int argc, char** argv )
 	marker.color.g = 1.0f;
 	marker.color.b = 0.0f;
 	marker.color.a = 1.0;
+	drawWorkspace(n);
 
 	marker.lifetime = ros::Duration();
+	bigCircle.lifetime = ros::Duration();
+	midCircle1.lifetime = ros::Duration();
+	midCircle2.lifetime = ros::Duration();
 	ros::Subscriber fkCheckSub;
 	ros::Subscriber configSub;
 	while (ros::ok())
   {
 		fkCheckSub = n.subscribe("/fkCheck", 5, &fkCheckCallBack);
-		configSub = n.subscribe("/joint_states", 5, &configCallBack);
 		ros::spin();
   }
 }

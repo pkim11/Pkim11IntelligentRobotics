@@ -3,10 +3,9 @@
 
 #include <array>
 #include <cmath>
-
+#include "TypeDefs.hpp"
 
 namespace IRlibrary {
-	typedef std::array <double, 2> Vec2;
 	class Planar2R {
 		protected:
 			Vec2 l;

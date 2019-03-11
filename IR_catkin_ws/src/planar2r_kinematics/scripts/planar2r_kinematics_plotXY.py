@@ -50,7 +50,7 @@ def updateXY(msg):
     global ang1, ang2, ax1
     count = count + 1;
     curr_ang1 = msg.position[0] * 180 / math.pi
-    curr_ang2 = msg.position[2] * 180 / math.pi
+    curr_ang2 = msg.position[1] * 180 / math.pi
     ang1 = np.append(ang1, curr_ang1)
     ang2 = np.append(ang2, curr_ang2)
     try:
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     rospy.init_node("XYplotter")
     global listener
     listener = tf.TransformListener()
-    time.sleep(1)
+    # time.sleep(10)
 
     rospy.Subscriber("/joint_states", JointState, updateXY)
     plt.show()
