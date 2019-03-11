@@ -23,7 +23,7 @@ void configCallBack(const sensor_msgs::JointState::ConstPtr &msg) {
 	bigCircle.scale.x = smallCircle.scale.x = 0.05;
 	double largerRad = msg->position[1] + msg->position[3];
 	double smallerRad = abs(msg->position[1] - msg->position[3]);
-	// Line strip is blue
+
 	bigCircle.color.r = 0.25; smallCircle.color.r = 0.25;
 	bigCircle.color.g = 0.25; smallCircle.color.g = 0.25;
 	bigCircle.color.b = 0.25; smallCircle.color.b = 0.25;
@@ -43,7 +43,6 @@ void configCallBack(const sensor_msgs::JointState::ConstPtr &msg) {
 		bigCircle.points.push_back(p1);
 		smallCircle.points.push_back(p2);
 	}
-
 
 	marker_pub.publish(bigCircle);
 	marker_pub.publish(smallCircle);
