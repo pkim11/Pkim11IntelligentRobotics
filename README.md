@@ -85,9 +85,11 @@ I decided to pull out my notebook and try a few things out.
 After a few trial and errors, I found a relationship!
 
 ~~~
-Given some dimensional space, if we confine the possible values to one dimension then it will look like a straight line.
+Given some dimensional space, if we confine the possible 
+values to one dimension then it will look like a straight line.
 
-Specifically, if we were in a 2 dimensional space and keep one of the coordinates static, then the result would be a straight line.
+Specifically, if we were in a 2 dimensional space and keep 
+one of the coordinates static, then the result would be a straight line.
 
 We can scale this up to 3 coordinates, and I presume multiple coordinates.
 ~~~
@@ -99,6 +101,10 @@ I was able to code this idea in a few short lines:
 ![](others/planar2rline.png)
 
 Now what we have is a 2r planar robot who can move to objects, and then move to some point on a line. This is not necessarily "picking up" the object, but we can imagine that the objects are point objects and the end-effector is a magnet type of thing.
+
+The objects to pick up were in a straight line, from left to right above the origin.
+The line to place objects on is a straight line below the origin.
+The location on the line where the objects were to be placed is random.
 
 Here is our result:
 
