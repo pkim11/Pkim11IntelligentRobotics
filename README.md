@@ -33,7 +33,7 @@ For any robot, the workspace consists of the space that is within the robot’s
 grasp. For this, we must think about the link lengths and feasible joint values. Since we
 are dealing with simulations and not physical robots, the joint values can be a full 360
 degrees around each joint.
-
+~~~
 
 ### Results
 There were some successes and some failures.
