@@ -51,7 +51,7 @@ class ROS_Planar2R {
 				fk_check.data = true;
 			}
 			else 
-				fk_check.data = true;
+				fk_check.data = false;
 			fkCheckPub.publish(fk_check);
 		}
 };

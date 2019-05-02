@@ -21,19 +21,22 @@ int main(int argc, char **argv)
 
 	ros::Duration(0.01).sleep();
 	ros::Publisher configPub;
-	configPub = n.advertise <msg_type> ("/pubJointStates", ??); /* Fix this line. Do NOT change "/pubJointStates" */
+	configPub = n.advertise <sensor_msgs::JointState> ("/pubJointStates", 5); /* Fix this line. Do NOT change "/pubJointStates" */
 	ros::Time start = ros::Time::now();
 	sensor_msgs::JointState new_state;
 	new_state.name = {"joint1", "joint2"};
 	new_state.header.stamp = ros::Time::now();
 	double diff = (ros::Time::now() - start).toSec();
 	new_state.position = { M_PI * cos(diff), M_PI * sin(diff)};
-	while (/* Fix this */)
+	while (ros::ok())
 	{
-		diff = // Complete this
+		diff = (ros::Time::now() - start).toSec();
 		new_state.header.stamp = ros::Time::now();
-		new_state.position[0] = // Complete this
-		new_state.position[1] = // Complete this
+		new_state.position[0] = M_PI * cos(diff/2.);
+		new_state.position[1] = M_PI * sin(diff/2.);
+		configPub.publish(new_state);
+		ros::spinOnce();
+		loop_rate.sleep();
 		/* Something important was published here */
 		/* This was important as well, something spinning */
 		/* Something related to sleep was here */

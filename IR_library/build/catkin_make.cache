@@ -1,0 +1,2 @@
+
+-DCATKIN_DEVEL_PREFIX=/home/pk/Documents/IntRob/IR_library_ros/IR_library/devel -DCMAKE_INSTALL_PREFIX=/home/pk/Documents/IntRob/IR_library_ros/IR_library/install -G Unix Makefiles

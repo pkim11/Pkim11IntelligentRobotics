@@ -1,24 +1,26 @@
 CXX=g++
 IDIR=include/
 IDIRS=-Iinclude/
-LDIR=-Llib/ 
-CFLAGS=-std=c++11 -Wall -O2 $(IDIRS) $(LDIR) -fopenmp -fPIC
+LDIR=-Llib/
+CFLAGS=-std=c++14 -Wall -O2 $(IDIRS) $(LDIR) -fopenmp -fPIC
 ODIR=obj/
 SRCDIR=src/
+MAINDIR=main/
 
 LIBS=
 EXEC_PATH=bin/
 LIB_PATH=lib/
 
-_DEPS=Planar2R.hpp Planar2Rmod.hpp Planar3R.hpp Spatial3R.hpp RigidBodyMotion.hpp TypeDefs.hpp ForwardKinematics.hpp
+_DEPS=RigidBodyMotion.hpp TypeDefs.hpp ForwardKinematics.hpp MathUtils.hpp Jacobian.hpp Spatial3R.hpp
 DEPS=$(patsubst %,$(IDIR)%,$(_DEPS))
 
-_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o
+_OBJ_ALL=Planar2R.o Planar2Rmod.o Planar3R.o Spatial3R.o Jacobian.o 
 OBJ_ALL=$(patsubst %,$(ODIR)%,$(_OBJ_ALL))
 
 all: $(LIB_PATH)libIRLibrary.a  
-	mkdir -p $(ODIR)
-	mkdir -p $(LIB_PATH)
+	cd main && $(MAKE)
+
+exec: $(LIB_PATH)libIRLibrary.a  
 	cd main && $(MAKE)
 
 $(ODIR):
@@ -27,8 +29,14 @@ $(ODIR):
 $(LIB_PATH):
 	mkdir -p $(LIB_PATH)
 
-$(ODIR)%.o: $(SRCDIR)%.cpp $(DEPS) | $(ODIR) $(LIB_PATH)
+$(EXEC_PATH):
+	mkdir -p $(EXEC_PATH)
+
+$(ODIR)%.o: $(SRCDIR)%.cpp $(IDIR)%.hpp $(DEPS) | $(ODIR) $(LIB_PATH)
 	$(CXX) -c -o $@ $< $(CFLAGS)
+
+gradeAll: $(MAINDIR)gradeAll.cpp $(DEPS) | $(EXEC_PATH)
+	cd main && $(MAKE) gradeAll
 
 $(LIB_PATH)libIRLibrary.a: $(OBJ_ALL)
 	ar rcs $@ $^

@@ -102,6 +102,13 @@ find_package(catkin REQUIRED COMPONENTS
 ## catkin specific configuration ##
 ###################################
 
+catkin_package(
+# INCLUDE_DIRS include
+# LIBRARIES planar2r_kinematics
+# CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs visualization_msgs
+# DEPENDS system_lib
+)
+
 ###########
 ## Build ##
 ###########
@@ -119,6 +126,14 @@ target_link_libraries(planar2r_kinematics_forwardKinematics ${catkin_LIBRARIES} 
 
 add_executable(planar2r_kinematics_geometry_shapes src/geometry_shapes.cpp)
 target_link_libraries(planar2r_kinematics_geometry_shapes ${catkin_LIBRARIES})
+
+
 ####################
 ## Add genConfig build instructions ##
 ####################
+
+add_executable(planar2r_kinematics_simpleTraj src/simpleTraj.cpp)
+target_link_libraries(planar2r_kinematics_simpleTraj ${catkin_LIBRARIES} IRLibrary)
+########
+
+

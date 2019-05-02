@@ -13,9 +13,9 @@ int main(int argc, char **argv)
 
 	while (ros::ok())
 	{
-		/* ros_3r.posePublish(); */
-		/* ros::spinOnce(); */
-		/* loop_rate.sleep(); */
+		//ros_3r.posePublish(); 
+		//ros::spinOnce(); 
+		//loop_rate.sleep(); 
 	}
 
 

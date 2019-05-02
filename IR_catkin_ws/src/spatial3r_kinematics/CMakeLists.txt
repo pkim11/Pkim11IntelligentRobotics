@@ -54,4 +54,13 @@ target_link_libraries(spatial3r_kinematics_forwardKinematics ${catkin_LIBRARIES}
 add_executable(spatial3r_kinematics_geometry_shapes src/geometry_shapes.cpp)
 target_link_libraries(spatial3r_kinematics_geometry_shapes ${catkin_LIBRARIES})
 
+#################
+
+add_executable(spatial3r_kinematics_pkProj src/pkProj.cpp)
+target_link_libraries(spatial3r_kinematics_pkProj ${catkin_LIBRARIES} IRLibrary)
+
+
+
+
+
 

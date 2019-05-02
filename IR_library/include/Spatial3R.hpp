@@ -20,19 +20,31 @@ namespace IRlibrary {
 		public:
 			// Constructors
 			Spatial3R() : l({0, 0, 0}), q({0, 0, 0}), base({0, 0, 0}) { zeroForwardKinematics(); };
-			Spatial3R(double l1_i, double l2_i, double l3_i) : l({l1_i, l2_i, l3_i}), q({0, 0, 0}), base({0, 0}) { zeroForwardKinematics(); };
+//			Spatial3R(double l1_i, double l2_i, double l3_i) : l({l1_i, l2_i, l3_i}), q({0, 0, 0}), base({0, 0}) { zeroForwardKinematics(); };
+			Spatial3R(double l1_i, double l2_i, double l3_i) : l({l1_i, l2_i, l3_i}), q({0, 0, 0}), base({0, 0, 0}) { zeroForwardKinematics(); };
 
 			void setConfig(const Vec3 &q_i) { q = q_i; zeroForwardKinematics(); }
-			void setX(const Vec3 &x_i) { x = x_i; }
+			//void setX(const Vec3 &x_i) { x = x_i; }
 			void setOrigin(const Vec3 &o_i) { base = o_i; }
 			void setLinks(double l1_i, double l2_i, double l3_i) {l[0] = l1_i; l[1] = l2_i; l[2] = l3_i; zeroForwardKinematics();}
 
-			Vec3 getConfig() { return q; }
+			//Vec3 getConfig() { return q; }
 			Vec3 getX() { return x; }
 			Vec4 getQuaternion () { quat = {1, 0, 0, 0}; return quat; }
 			AxisAngle getAxisAngle () { return axisAngle; }
 
 			virtual void zeroForwardKinematics();
+
+			///////
+			void setX(const Vec3 &x_i){ 
+				inverseKinematics(x_i); 
+			}
+			Vec3 getConfig() {
+			return q; 
+			}
+			bool inverseKinematics(Vec3 const &);
+
+			///////
 
 	};
 } /* IRlibrary */ 
